@@ -1,8 +1,8 @@
-from professor.professor import Professor
-from aluno.aluno import Aluno
-from turma.turma import Turma
-from disciplina.disciplina import Disciplina
-from curso.curso import Curso
+from model.professor import Professor
+from model.aluno import Aluno
+from model.turma import Turma
+from model.disciplina import Disciplina
+from model.curso import Curso
 
 professor1 = Professor()
 aluno1 = Aluno()
