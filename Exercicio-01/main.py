@@ -3,6 +3,7 @@ from model.aluno import Aluno
 from model.turma import Turma
 from model.disciplina import Disciplina
 from model.curso import Curso
+from datetime import datetime
 
 professor1 = Professor()
 aluno1 = Aluno()
@@ -18,7 +19,9 @@ curso1 = Curso()
 professor1.set_nome("Marcos")
 professor1.set_cpf("123.456.789-00")
 professor1.set_endereco("Rua 1")
-professor1.set_data_nascimento("01/01/2000")
+data_nascimento_prof1 = "01/01/2000"
+data_nascimento_prof1 = datetime.strptime(data_nascimento_prof1, "%d/%m/%Y")
+professor1.set_data_nascimento(data_nascimento_prof1)
 professor1.set_telefone("1234-5678")
 professor1.set_email("marcos@example.com")
 professor1.set_sexo("M")
@@ -28,7 +31,8 @@ professor1.set_salario(1618)
 aluno1.set_nome("João")
 aluno1.set_cpf("123.456.789-00")
 aluno1.set_endereco("Rua 1")
-aluno1.set_data_nascimento("01/01/2000")
+data_nascimento_aluno1 = datetime.now().strftime("%d/%m/%Y")
+aluno1.set_data_nascimento()
 aluno1.set_telefone("1234-5678")
 aluno1.set_email("joao@example.com")
 aluno1.set_sexo("M")
