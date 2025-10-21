@@ -1,4 +1,5 @@
 class Funcionario:
+    
     def __init__(self, nome, salario_bruto, total_acrescimos=0, total_descontos=0):
         self.__nome = nome
         self.__salario_bruto = salario_bruto
