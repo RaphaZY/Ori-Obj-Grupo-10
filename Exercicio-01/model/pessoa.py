@@ -62,5 +62,3 @@ class Pessoa(ABC):
               f'|Email: {self.get_email()}\n'
               f'|Sexo: {self.get_sexo()}'
               )
-
-    

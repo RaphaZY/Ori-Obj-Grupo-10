@@ -1,8 +1,9 @@
 class Curso():
-    def __init__(self, nome=None, descricao=None, turmas=None):
+    def __init__(self, nome=None, descricao=None, turmas=None, alunos=None):
         self.__nome = nome
         self.__descricao = descricao
         self.__turmas = turmas or []
+        self.__alunos = alunos or []
 
     def get_nome(self):
         return self.__nome
@@ -19,21 +20,31 @@ class Curso():
     def get_turmas(self):
         return [turma.get_id() for turma in self.__turmas]
     
+    def get_turma(self, id):
+        for turma in self.__turmas:
+            if turma.get_id() == id:
+                return turma
+    
     def add_turma(self, turma):
         self.__turmas.append(turma)
+
+    def add_aluno(self, aluno):
+        self.__alunos.append(aluno)
 
     def get_professores(self):
         return set([turma.get_professor() for turma in self.__turmas])
 
     def get_disciplinas(self):
-        return set([turma.get_disciplina() for turma in self.__turmas])
+        return [turma.get_disciplina() for turma in self.__turmas]
 
     def get_alunos(self):
-        alunos = []
-        for turma in self.__turmas:
-            alunos.extend(turma.get_alunos())
-        return set(alunos)
+        return [aluno.get_nome() for aluno in self.__alunos]
     
+    def verifica_aluno(self, aluno):
+        return aluno in self.__alunos
+    
+    def get_alunos_turma(self, turma):
+        return turma.get_alunos()
    
     def remove_turma(self, turma):
         if turma in self.__turmas:
@@ -42,11 +53,13 @@ class Curso():
         return False
     
     def remove_aluno(self, aluno):
-        removido = False
+        if aluno in self.__alunos:
+            self.__alunos.remove(aluno)
+
         for turma in self.__turmas:
-            if turma.remove_aluno(aluno):
-                removido = True
-        return removido
+            turma.remove_aluno(aluno)
+
+        return True
 
 
     def __str__(self):

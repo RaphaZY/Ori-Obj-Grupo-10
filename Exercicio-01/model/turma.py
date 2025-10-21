@@ -16,13 +16,13 @@ class Turma():
         return self.__descricao
     
     def get_professor(self):
-        return self.__professor
-    
+        return self.__professor.get_nome()
+
     def get_alunos(self):
         return [aluno.get_nome() for aluno in self.__alunos]
 
     def get_disciplina(self):
-        return self.__disciplina
+        return self.__disciplina.get_nome()
 
     def add_aluno(self, aluno):
         self.__alunos.append(aluno)
@@ -40,9 +40,10 @@ class Turma():
         self.__disciplina = disciplina
 
     def remove_aluno(self, aluno):
-        if aluno in self.__alunos:
-            self.__alunos.remove(aluno)
-            return True
+        for a in self.__alunos:
+            if a.get_matricula() == aluno.get_matricula():   
+                self.__alunos.remove(a)
+                return True
         return False
 
     def imprimir_dados(self):
