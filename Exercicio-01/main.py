@@ -134,45 +134,46 @@ aluno3.add_turma(turma3)
 # print('----------------------')
 
 
+if __name__ == '__main__':
+    
+    print('----------01------------')
+    print(turma1.get_professor())
 
-print('----------01------------')
-print(turma1.get_professor())
+    print('----------02------------')
+    print(turma2.get_alunos())
 
-print('----------02------------')
-print(turma2.get_alunos())
+    print('----------03------------')
+    print(curso1.get_professores())
 
-print('----------03------------')
-print(curso1.get_professores())
+    print('----------04------------')
+    print(curso1.get_alunos_turma(turma2))
 
-print('----------04------------')
-print(curso1.get_alunos_turma(turma2))
+    print('----------05------------')
+    print(curso1.get_alunos())
 
-print('----------05------------')
-print(curso1.get_alunos())
+    print('----------06------------')
+    print(curso1.get_turma(2).get_disciplina())
 
-print('----------06------------')
-print(curso1.get_turma(2).get_disciplina())
+    print('----------07------------')
+    print(turma3.tem_aluno(aluno1))
 
-print('----------07------------')
-print(turma3.tem_aluno(aluno1))
+    print('----------08------------')
+    print(curso1.verifica_aluno(aluno2))
 
-print('----------08------------')
-print(curso1.verifica_aluno(aluno2))
+    print('----------09------------')
+    print(turma1.get_id() in curso1.get_turmas())
 
-print('----------09------------')
-print(turma1.get_id() in curso1.get_turmas())
+    print('----------10------------')
+    print("Antes:", turma1.get_alunos())
+    turma1.remove_aluno(aluno1)
+    print("Depois:", turma1.get_alunos())
 
-print('----------10------------')
-print("Antes:", turma1.get_alunos())
-turma1.remove_aluno(aluno1)
-print("Depois:", turma1.get_alunos())
+    print('----------11------------')
+    print("Antes:", curso1.get_turmas())
+    curso1.remove_turma(turma3)
+    print("Depois:", curso1.get_turmas())
 
-print('----------11------------')
-print("Antes:", curso1.get_turmas())
-curso1.remove_turma(turma3)
-print("Depois:", curso1.get_turmas())
-
-print('----------12------------')
-print("Antes:", turma2.get_alunos(), turma1.get_alunos())
-curso1.remove_aluno(aluno3)
-print("Depois:", turma2.get_alunos(), turma1.get_alunos())
+    print('----------12------------')
+    print("Antes:", turma2.get_alunos(), turma1.get_alunos())
+    curso1.remove_aluno(aluno3)
+    print("Depois:", turma2.get_alunos(), turma1.get_alunos())
