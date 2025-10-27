@@ -1,11 +1,11 @@
-from escolaridade import Escolaridade
-from estado import Estado
-from cidade import Cidade
-from tipo_ensino import TipoEnsino
-from professor import Professor
-from aluno import Aluno
-from curso import Curso
-from escola import Escola
+from model.escolaridade import Escolaridade
+from model.estado import Estado
+from model.cidade import Cidade
+from model.tipo_ensino import TipoEnsino
+from model.professor import Professor
+from model.aluno import Aluno
+from model.curso import Curso
+from model.escola import Escola
 
 def main():
     superior = TipoEnsino("Ensino Superior")
