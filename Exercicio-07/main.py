@@ -2,6 +2,7 @@ from model.funcionario import Funcionario
 
 def main():
     funcionario1 = Funcionario()
+    funcionario1.set_id(1)
     funcionario1.set_nome("Gabriel M.")
     funcionario1.set_salario_bruto(1800)
     funcionario1.set_total_acrescimos(100)
