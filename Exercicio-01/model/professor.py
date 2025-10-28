@@ -2,11 +2,12 @@ from model.pessoa import Pessoa
 
 
 class Professor(Pessoa):
-    def __init__(self, id=None, nome=None, cpf=None, email=None, telefone=None, endereco=None, data_nascimento=None, sexo=None, matricula=None, salario=None, turmas=None):
+    def __init__(self, id=None, nome=None, cpf=None, email=None, telefone=None, endereco=None, data_nascimento=None, sexo=None, matricula=None, salario=None, turmas=None, diciplinas=None):
         super().__init__(id, nome, cpf, email, telefone, endereco, data_nascimento, sexo)
         self.__salario = salario
         self.__matricula = matricula
         self.__turmas = turmas or []
+        self.__diciplinas = diciplinas or []
 
     def set_matricula(self, matricula):
         self.__matricula = matricula
@@ -28,6 +29,12 @@ class Professor(Pessoa):
         for turma in self.__turmas:
             lista.append(turma.get_id())
         return lista
+    
+    def add_diciplina(self, diciplina):
+        self.__diciplinas.append(diciplina)
+
+    def get_diciplinas(self):
+        return self.__diciplinas
     
     def imprimir_dados(self):
         super().imprimir_dados()

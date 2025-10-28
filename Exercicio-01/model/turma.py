@@ -1,10 +1,11 @@
 class Turma():
-    def __init__(self, id=None, descricao=None, professor=None, alunos=None, disciplina=None):
+    def __init__(self, id=None, descricao=None, professor=None, alunos=None, disciplina=None, curso=None):
         self.__id = id
         self.__descricao = descricao
-        self.__disciplina = disciplina
-        self.__professor = professor
+        self.__disciplina = disciplina or []
+        self.__professor = professor or []
         self.__alunos = alunos or []
+        self.__curso = curso
 
     def tem_aluno(self, aluno):
         return aluno in self.__alunos
@@ -45,6 +46,12 @@ class Turma():
                 self.__alunos.remove(a)
                 return True
         return False
+    
+    def get_curso(self):
+        return self.__curso
+    
+    def set_curso(self, curso):
+        self.__curso = curso
 
     def imprimir_dados(self):
         print(f"ID: {self.get_id()}\nDescricao: {self.get_descricao()}\nProfessor: {self.get_professor()}\nAlunos: {self.get_alunos()}\nDisciplina: {self.get_disciplina()}")

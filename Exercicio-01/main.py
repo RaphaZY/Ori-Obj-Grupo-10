@@ -114,10 +114,21 @@ def main():
     curso1.add_aluno(aluno2)
     curso1.add_aluno(aluno3)
 
+    turma1.set_curso(curso1)
+    turma2.set_curso(curso1)
+    turma3.set_curso(curso1)
+
     professor1.add_turma(turma1)
     professor1.add_turma(turma2)
+    professor1.add_diciplina(disciplina1)
+    professor1.add_diciplina(disciplina2)
 
     professor2.add_turma(turma3)
+    professor2.add_diciplina(disciplina3)
+
+    disciplina1.add_professor(professor1)
+    disciplina2.add_professor(professor1)
+    disciplina3.add_professor(professor2)
 
     aluno1.add_turma(turma1)
     aluno1.add_turma(turma3)
