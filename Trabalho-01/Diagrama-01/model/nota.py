@@ -1,13 +1,20 @@
 from decimal import Decimal
 
 class Nota:
-    def __init__(self, id, data=None, numero=None, empresa=None, participante=None):
+    def __init__(self, id=None, data=None, numero=None, empresa=None, participante=None):
         self.__id = id
         self.__data = data
         self.__numero = numero
         self.__empresa = empresa
         self.__participante = participante
         self.__itens = []
+
+    def get_id(self):
+        return self.__id
+    
+    def set_id(self, id):
+        self.__id = id
+
 
     def add_item(self, item):
         self.__itens.append(item)

@@ -1,11 +1,17 @@
 from decimal import Decimal
 
 class ItemNota:
-    def __init__(self, id, produto=None, vr_unitario=None, quantidade=None):
+    def __init__(self, id=None, produto=None, vr_unitario=None, quantidade=None):
         self.__id = id
         self.__produto = produto
         self.__vr_unitario = vr_unitario
         self.__quantidade = quantidade
+
+    def get_id(self):
+        return self.__id
+    
+    def set_id(self, id):
+        self.__id = id
 
     def get_produto(self):
         return self.__produto

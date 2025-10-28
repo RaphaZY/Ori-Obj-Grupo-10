@@ -8,40 +8,47 @@ from model.nota import Nota
 
 def main():
     
-    empresa = Empresa(1)
+    empresa = Empresa()
+    empresa.set_id(1)
     empresa.set_codigo(101)
     empresa.set_razao_social("Tech Inova Ltda")
     empresa.set_endereco("Rua Central, 123")
     empresa.set_cnpj("11.111.111/0001-11")
 
-    participante = Participante(1)
+    participante = Participante()
+    participante.set_id(1)
     participante.set_codigo(500)
     participante.set_razao_social("Comercial Alpha")
     participante.set_cnpj("22.222.222/0001-22")
 
   
-    produto1 = Produto(1)
+    produto1 = Produto()
+    produto1.set_id(1)
     produto1.set_codigo("P001")
     produto1.set_descricao("Teclado Mecânico")
 
-    produto2 = Produto(2)
+    produto2 = Produto()
+    produto2.set_id(2)
     produto2.set_codigo("P002")
     produto2.set_descricao("Mouse Gamer")
 
   
-    nota = Nota(1)
+    nota = Nota()
+    nota.set_id(1)
     nota.set_data(date.today())
     nota.set_numero(1001)
     nota.set_empresa(empresa)
     nota.set_participante(participante)
 
     
-    item1 = ItemNota(1)
+    item1 = ItemNota()
+    item1.set_id(1)
     item1.set_produto(produto1)
     item1.set_vr_unitario(250.00)
     item1.set_quantidade(2)
 
-    item2 = ItemNota(2)
+    item2 = ItemNota()
+    item2.set_id(2)
     item2.set_produto(produto2)
     item2.set_vr_unitario(150.00)
     item2.set_quantidade(3)

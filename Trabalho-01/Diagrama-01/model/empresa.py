@@ -1,11 +1,17 @@
 class Empresa:
-    def __init__(self, id, codigo=None, razao_social=None, endereco=None, cnpj=None):
+    def __init__(self, id=None, codigo=None, razao_social=None, endereco=None, cnpj=None):
         self.__id = id
         self.__codigo = codigo
         self.__razao_social = razao_social
         self.__endereco = endereco
         self.__cnpj = cnpj
         self.__notas = []
+
+    def get_id(self):
+        return self.__id
+    
+    def set_id(self, id):
+        self.__id = id
 
     def add_nota(self, nota):
         self.__notas.append(nota)
