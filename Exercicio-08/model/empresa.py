@@ -1,8 +1,15 @@
 class Empresa:
-    def __init__(self, nome=None, diretor=None, grupo=None):
+    def __init__(self,id=None, nome=None, diretor=None, grupo=None):
+        self.__id = id
         self.__nome = nome
         self.__diretor = diretor
         self.__grupo = grupo
+
+    def get_id(self):
+        return self.__id
+    
+    def set_id(self, id):
+        self.__id = id
 
     def get_nome(self):
         return self.__nome

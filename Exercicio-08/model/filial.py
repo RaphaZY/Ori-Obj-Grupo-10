@@ -1,8 +1,15 @@
 class Filial:
-    def __init__(self, nome=None, cidade=None, empresa=None):
+    def __init__(self,id=None, nome=None, cidade=None, empresa=None):
+        self.__id = id
         self.__nome = nome
         self.__cidade = cidade
         self.__empresa = empresa
+
+    def get_id(self):
+        return self.__id
+    
+    def set_id(self, id):
+        self.__id = id
 
     def get_nome(self):
         return self.__nome

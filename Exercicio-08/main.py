@@ -10,58 +10,71 @@ from model.filial import Filial
 
 def main():
     pais_brasil = Pais()
+    pais_brasil.set_id(1)
     pais_brasil.set_nome("Brasil")
 
     estado_sp = Estado()
+    estado_sp.set_id(1)
     estado_sp.set_nome("São Paulo")
 
     cidade_sp = Cidade()
+    cidade_sp.set_id(1)
     cidade_sp.set_nome("São Paulo")
     cidade_sp.set_estado(estado_sp)
 
 
     esc_presidente = Escolaridade()
+    esc_presidente.set_id(1)
     esc_presidente.set_nivel("Doutorado")
     esc_chefe = Escolaridade()
+    esc_chefe.set_id(2)
     esc_chefe.set_nivel("Mestrado")
     esc_funcionario = Escolaridade()
+    esc_funcionario.set_id(3)
     esc_funcionario.set_nivel("Ensino Superior Completo")
 
 
     presidente = Funcionario()
+    presidente.set_id(1)
     presidente.set_nome("Carlos Silva")
     presidente.set_escolaridade(esc_presidente)
     presidente.set_pais_alocacao(pais_brasil)
 
     chefe = Funcionario()
+    chefe.set_id(2)
     chefe.set_nome("Mariana Costa")
     chefe.set_escolaridade(esc_chefe)
     chefe.set_pais_alocacao(pais_brasil)
 
     funcionario = Funcionario()
+    funcionario.set_id(3)
     funcionario.set_nome("João Souza")
     funcionario.set_escolaridade(esc_funcionario)
     funcionario.set_pais_alocacao(pais_brasil)
 
 
     grupo = Grupo()
+    grupo.set_id(1)
     grupo.set_nome("NetLab")
     grupo.set_presidente(presidente)
     grupo.set_sede(pais_brasil)
 
 
     empresa = Empresa()
+    empresa.set_id(1)
     empresa.set_nome("InovaTech")
     empresa.set_diretor("Pedro Lima")
     empresa.set_grupo(grupo)
 
 
     departamento = Departamento()
+    departamento.set_id(1)
     departamento.set_nome("TI")
     departamento.set_chefe(chefe)
 
 
     filial = Filial()
+    filial.set_id(1)
     filial.set_nome("InovaTech SP")
     filial.set_cidade(cidade_sp)
     filial.set_empresa(empresa)

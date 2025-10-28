@@ -1,10 +1,17 @@
 class Funcionario:
-    def __init__(self, nome=None, escolaridade=None, pais_alocacao=None):
+    def __init__(self,id=None, nome=None, escolaridade=None, pais_alocacao=None):
+        self.__id = id
         self.__nome = nome
         self.__escolaridade = escolaridade
         self.__pais_alocacao = pais_alocacao
         self.__departamento = None
         self.__coordenacao = None 
+
+    def get_id(self):
+        return self.__id
+    
+    def set_id(self, id):
+        self.__id = id
 
     def get_nome(self):
         return self.__nome
