@@ -1,7 +1,13 @@
 class Disciplina:
-    def __init__(self, id, descricao=None):
+    def __init__(self, id=None, descricao=None):
         self.__id = id
         self.__descricao = descricao
+
+    def get_id(self):
+        return self.__id
+    
+    def set_id(self, id):
+        self.__id = id
 
     def get_descricao(self):
         return self.__descricao

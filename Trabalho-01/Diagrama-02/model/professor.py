@@ -1,7 +1,7 @@
 from model.pessoa import Pessoa
 
 class Professor(Pessoa):
-    def __init__(self, id, nome=None, cpf=None, data_nascimento=None, email=None, endereco=None, telefone=None, identidade=None, matricula=None, titulacao_maxima=None):
+    def __init__(self, id=None, nome=None, cpf=None, data_nascimento=None, email=None, endereco=None, telefone=None, identidade=None, matricula=None, titulacao_maxima=None):
         super().__init__(id, nome, cpf, data_nascimento, email, endereco, telefone, identidade)
         self.__matricula = matricula
         self.__titulacao_maxima = titulacao_maxima

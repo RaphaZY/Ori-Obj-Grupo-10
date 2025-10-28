@@ -1,7 +1,7 @@
 from abc import ABC, abstractmethod 
 
 class Pessoa(ABC):
-    def __init__(self, id, nome=None, cpf=None, data_nascimento=None, email=None, endereco=None, telefone=None, identidade=None):
+    def __init__(self, id=None, nome=None, cpf=None, data_nascimento=None, email=None, endereco=None, telefone=None, identidade=None):
         self._id = id
         self._nome = nome
         self._cpf = cpf
@@ -10,6 +10,12 @@ class Pessoa(ABC):
         self._endereco = endereco
         self._telefone = telefone
         self._identidade = identidade
+
+    def get_id(self):
+        return self.__id
+    
+    def set_id(self, id):
+        self.__id = id
 
     def get_nome(self):
         return self._nome
@@ -55,7 +61,8 @@ class Pessoa(ABC):
 
     @abstractmethod
     def imprimir_dados(self):
-        print(f'|Nome: {self.get_nome()}\n'
+        print(f"|ID: {self.get_id()}\n"
+              f'|Nome: {self.get_nome()}\n'
               f'|CPF: {self.get_cpf()}\n'
               f'|Email: {self.get_email()}\n'
               f'|Endereço: {self.get_endereco()}\n'

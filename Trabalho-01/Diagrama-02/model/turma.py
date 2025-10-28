@@ -1,11 +1,17 @@
 class Turma:
-    def __init__(self, id, descricao=None, ano=None, semestre=None):
+    def __init__(self, id=None, descricao=None, ano=None, semestre=None):
         self.__id = id
         self.__descricao = descricao
         self.__ano = ano
         self.__semestre = semestre
         self.__diarios = []
         self.__disciplina = None
+
+    def get_id(self):
+        return self.__id
+    
+    def set_id(self, id):
+        self.__id = id
 
     def add_diario(self, diario):
         self.__diarios.append(diario)

@@ -1,12 +1,18 @@
 from decimal import Decimal
 
 class Diario:
-    def __init__(self, v1=0, v2=0, v3=0, vf=0, faltas=0):
+    def __init__(self, id=None, v1=0, v2=0, v3=0, vf=0, faltas=0):
         self.__v1 = v1
         self.__v2 = v2
         self.__v3 = v3
         self.__vf = vf
         self.__faltas = faltas
+
+    def get_id(self):
+        return self.__id
+    
+    def set_id(self, id):
+        self.__id = id
 
     def media_final(self):
         return (self.__v1 + self.__v2 + self.__v3 + self.__vf) / 4
