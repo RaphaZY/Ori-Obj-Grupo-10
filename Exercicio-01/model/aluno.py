@@ -1,12 +1,12 @@
 from model.pessoa import Pessoa
 
 class Aluno(Pessoa):
-    def __init__(self, nome=None, cpf=None, endereco=None, data_nascimento=None, telefone=None, email=None, sexo=None, matricula=None, ano_inicio=None, turmas=None, diciplinas=None):
-        super().__init__(nome, cpf, endereco, data_nascimento, telefone, email, sexo)
+    def __init__(self, id=None, nome=None, cpf=None, endereco=None, data_nascimento=None, telefone=None, email=None, sexo=None, matricula=None, ano_inicio=None, turmas=None, cursos=None):
+        super().__init__(id,nome, cpf, endereco, data_nascimento, telefone, email, sexo)
         self.__matricula = matricula
         self.__ano_inicio = ano_inicio
         self.__turmas = turmas or []
-        self.__diciplinas = diciplinas or []
+        self.__cursos = cursos or []
 
 
     def get_matricula(self):
@@ -26,24 +26,30 @@ class Aluno(Pessoa):
         self.__turmas.append(turma)
 
     def get_turmas(self):
-        lista_turmas = []
         for turma in self.__turmas:
-            lista_turmas.append(turma.get_id())
-        return lista_turmas
+            return turma
 
-    def add_diciplina(self, diciplina):
-        self.__diciplinas.append(diciplina)
+    def add_curso(self, curso):
+        self.__cursos.append(curso)
 
-    def get_diciplinas(self):
-        lista_diciplinas = []
-        for diciplina in self.__diciplinas:
-            lista_diciplinas.append(diciplina.get_nome())
-        return lista_diciplinas
+    def get_cursos(self):
+        for curso in self.__cursos:
+            return curso
+        
+    def remove_turma(self, turma):
+        if turma in self.__turmas:
+            self.__turmas.remove(turma)
+            return True
+        
+    def remove_curso(self, curso):
+        if curso in self.__cursos:
+            self.__cursos.remove(curso)
+            return True
 
     def imprimir_dados(self):
         super().imprimir_dados()
         print(f"|Matricula: {self.get_matricula()}\n"
               f"|Ano de Início: {self.get_ano_inicio()}\n"
               f"|Turmas: {self.get_turmas()}\n"
-              f"|Diciplinas: {self.get_diciplinas()}\n"
+              f"|cursos: {self.get_cursos()}\n"
               )

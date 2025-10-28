@@ -2,8 +2,8 @@ from model.pessoa import Pessoa
 
 
 class Professor(Pessoa):
-    def __init__(self, nome=None, cpf=None, email=None, telefone=None, endereco=None, data_nascimento=None, sexo=None, matricula=None, salario=None, turmas=None):
-        super().__init__(nome, cpf, email, telefone, endereco, data_nascimento, sexo)
+    def __init__(self, id=None, nome=None, cpf=None, email=None, telefone=None, endereco=None, data_nascimento=None, sexo=None, matricula=None, salario=None, turmas=None):
+        super().__init__(id, nome, cpf, email, telefone, endereco, data_nascimento, sexo)
         self.__salario = salario
         self.__matricula = matricula
         self.__turmas = turmas or []

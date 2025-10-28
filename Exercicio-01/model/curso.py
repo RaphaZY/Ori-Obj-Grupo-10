@@ -1,9 +1,16 @@
 class Curso():
-    def __init__(self, nome=None, descricao=None, turmas=None, alunos=None):
+    def __init__(self, id=None, nome=None, descricao=None, turmas=None, alunos=None):
+        self.__id = id   
         self.__nome = nome
         self.__descricao = descricao
         self.__turmas = turmas or []
         self.__alunos = alunos or []
+
+    def get_id(self):
+        return self.__id
+    
+    def set_id(self, id):
+        self.__id = id
 
     def get_nome(self):
         return self.__nome
@@ -18,12 +25,8 @@ class Curso():
         self.__descricao = descricao
 
     def get_turmas(self):
-        return [turma.get_id() for turma in self.__turmas]
+        return self.__turmas
     
-    def get_turma(self, id):
-        for turma in self.__turmas:
-            if turma.get_id() == id:
-                return turma
     
     def add_turma(self, turma):
         self.__turmas.append(turma)
@@ -38,13 +41,10 @@ class Curso():
         return [turma.get_disciplina() for turma in self.__turmas]
 
     def get_alunos(self):
-        return [aluno.get_nome() for aluno in self.__alunos]
+        return self.__alunos
     
-    def verifica_aluno(self, aluno):
-        return aluno in self.__alunos
+   
     
-    def get_alunos_turma(self, turma):
-        return turma.get_alunos()
    
     def remove_turma(self, turma):
         if turma in self.__turmas:

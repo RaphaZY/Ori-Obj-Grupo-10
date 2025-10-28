@@ -1,7 +1,8 @@
 from abc import ABC, abstractmethod
 
 class Pessoa(ABC):
-    def __init__(self, nome=None, cpf=None, email=None, telefone=None, endereco=None, data_nascimento=None, sexo=None):
+    def __init__(self, id=None, nome=None, cpf=None, email=None, telefone=None, endereco=None, data_nascimento=None, sexo=None):
+        self.__id = id
         self.__nome = nome
         self.__cpf = cpf
         self.__email = email
@@ -9,6 +10,13 @@ class Pessoa(ABC):
         self.__endereco = endereco
         self.__data_nascimento = data_nascimento
         self.__sexo = sexo
+
+    def get_id(self):
+        return self.__id
+    
+    def set_id(self, id):
+        self.__id = id
+
 
     def get_nome(self):
         return self.__nome
