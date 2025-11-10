@@ -1,4 +1,5 @@
 from model.pessoa import Pessoa
+from abc import abstractmethod
 
 class Aluno(Pessoa):
     def __init__(self, nome=None, cpf=None, email=None, telefone=None, sexo=None, matricula=None, notas=None):
@@ -23,7 +24,8 @@ class Aluno(Pessoa):
         if len(self.__notas) == 0:
             return 0
         return sum(self.__notas) / len(self.__notas)
-    
+
+    @abstractmethod    
     def foi_aprovado(self):
         # Método abstrato - será implementado nas subclasses
         raise NotImplementedError("Método deve ser implementado na subclasse")
