@@ -1,0 +1,5 @@
+1;Maria Silva;Cliente;maria;1234
+2;João Souza;Bibliotecario;joao;admin
+3;Carlos Pereira;Cliente;carlos;abcd
+4;Ana Santos;Bibliotecario;ana;1234
+5;Pedro Almeida;Cliente;pedro;1234

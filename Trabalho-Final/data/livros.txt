@@ -1,0 +1,10 @@
+1;O Senhor dos Anéis;J.R.R. Tolkien
+2;Dom Casmurro;Machado de Assis
+3;Harry Potter e a Pedra Filosofal;J.K. Rowling
+4;1984;George Orwell
+5;O Pequeno Príncipe;Antoine de Saint-Exupéry
+6;O Hobbit;J.R.R. Tolkien
+7;A Revolução dos Bichos;George Orwell
+8;Orgulho e Preconceito;Jane Austen
+9;O Código Da Vinci;Dan Brown
+10;Capitães da Areia;Jorge Amado
