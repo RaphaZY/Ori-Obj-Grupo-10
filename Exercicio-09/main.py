@@ -44,7 +44,6 @@ def main():
     salario_liquido = funcionario.calcular_salario(2025, 11)
     print(f"\nSalário líquido de {funcionario.get_nome()} (11/2025): R$ {salario_liquido:.2f}")
 
-    # Listar dependentes e informações de aniversário
     funcionario.listar_dependentes()
 
 
