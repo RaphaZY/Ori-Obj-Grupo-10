@@ -10,10 +10,7 @@ class Transacao:
         return self.__dataTransacao
     
     def set_dataTransacao(self, dataTransacao):
-        if isinstance(dataTransacao, datetime):
-            self.__dataTransacao = dataTransacao.strftime('%d/%m/%Y')
-        else:
-            self.__dataTransacao = dataTransacao
+        self.__dataTransacao = datetime.strptime(dataTransacao, '%d/%m/%Y')
 
     def get_produto(self):
         return self.__produto
