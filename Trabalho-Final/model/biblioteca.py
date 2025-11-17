@@ -10,12 +10,12 @@ class Biblioteca:
         base_path = os.path.dirname(os.path.abspath(__file__))
         self.__data_path = os.path.join(base_path, "..", "data")
 
-        # ✅ Encapsulamento
+
         self.__usuarios = self.__carregar_usuarios()
         self.__livros = self.__carregar_livros()
         self.__emprestimos = self.__carregar_emprestimos()
 
-    # ------------------- GETTERS -------------------
+    # ------- GETTERS -------
     def get_usuarios(self):
         return self.__usuarios
 
@@ -40,14 +40,16 @@ class Biblioteca:
             if int(usuario.get_id()) == int(id_cliente):
                 return usuario
 
-    # ------------------- LOGIN -------------------
+    
+    # -------- AUTENTICAÇÃO ---------
     def autenticar_usuario(self, login, senha):
         for usuario in self.__usuarios:
             if usuario.validar_login(login, senha):
                 return usuario
         return None
 
-    # ------------------- CARREGAR ARQUIVOS -------------------
+    
+    # ------ CARREGAMENTO DE DADOS ------
     def __carregar_usuarios(self):
         usuarios = []
         caminho = os.path.join(self.__data_path, "usuarios.txt")
@@ -99,7 +101,8 @@ class Biblioteca:
         return emprestimos
 
 
-    # ------------------- LISTAGENS -------------------
+   
+    # ---------- LISTAGENS -------------
     def listar_livros(self):
         print("\n📚 Livros disponíveis:")
         for livro in self.get_livros():
@@ -124,7 +127,11 @@ class Biblioteca:
         for c in self.get_usuarios():
             print(f" - {c}")
 
-    # ------------------- ARQUIVO -------------------
+
+    # ==============================
+    #  CRUD DE EMPRÉSTIMO
+    # ==============================
+
     def __salvar_emprestimos(self):
         caminho = os.path.join(self.__data_path, "emprestimos.txt")
         with open(caminho, "w", encoding="utf-8") as f:
@@ -174,7 +181,8 @@ class Biblioteca:
         print(f"📅 Início: {data_inicio.strftime('%d/%m/%Y')} | Devolução: {data_entrega.strftime('%d/%m/%Y')}")
 
         return True
-    # ------------------- REMOVER EMPRÉSTIMO -------------------
+
+
     def remover_emprestimo(self, id_emprestimo, id_cliente):
         encontrado = False
         for e in self.__emprestimos:
@@ -188,6 +196,10 @@ class Biblioteca:
         else:
             print("❌ Empréstimo não encontrado.")
 
+
+    # ==============================
+    #  CRUD DE USUARIOS
+    # ==============================
     def salvar_usuarios(self):
         caminho = os.path.join(self.__data_path, "usuarios.txt")
         with open(caminho, "w", encoding="utf-8") as f:
@@ -212,7 +224,7 @@ class Biblioteca:
 
 
     # ==============================
-    # 🔹 CRUD DE LIVROS
+    #  CRUD DE LIVROS
     # ==============================
     def salvar_livros(self):
         caminho = os.path.join(self.__data_path, "livros.txt")
@@ -235,4 +247,5 @@ class Biblioteca:
                 print(f"✅ Livro '{l.get_titulo()}' removido com sucesso!")
                 return
         print("❌ Livro não encontrado.") 
+
 

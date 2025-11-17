@@ -6,7 +6,7 @@ class Emprestimo:
         self.__id_cliente = int(id_cliente) if id_cliente else None
         self.__id_livro = int(id_livro) if id_livro else None
 
-        # 🔹 Se vier string, converte; se vier date, mantém
+        # Se vier string, converte; se vier date, mantém
         if isinstance(data_inicio, str):
             self.__data_inicio = datetime.strptime(data_inicio.strip(), "%d-%m-%Y").date()
         elif isinstance(data_inicio, date):

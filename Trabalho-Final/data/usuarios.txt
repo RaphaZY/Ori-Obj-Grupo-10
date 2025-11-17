@@ -3,3 +3,4 @@
 3;Carlos Pereira;Cliente;carlos;abcd
 4;Ana Santos;Bibliotecario;ana;1234
 5;Pedro Almeida;Cliente;pedro;1234
+6;Raphael;bibliotecario;rapha;radmin

@@ -6,6 +6,8 @@ class Usuario:
         self.__login = login
         self.__senha = senha
 
+
+    # --------- GETTERS ---------
     def get_id(self):
         return self.__id
 
@@ -14,10 +16,14 @@ class Usuario:
 
     def get_tipo(self):
         return self.__tipo
-
-    def validar_login(self, login, senha):
-        return self.__login == login and self.__senha == senha
     
+    def get_login(self):
+        return self.__login
+    
+    def get_senha(self):
+        return self.__senha
+
+    # --------- SETTERS ---------
     def set_id(self, id):
         self.__id = int(id)
 
@@ -33,5 +39,11 @@ class Usuario:
     def set_senha(self, senha):
         self.__senha = senha
 
+    
+    # --------- VALIDAÇÃO DE LOGIN ---------
+    def validar_login(self, login, senha):
+        return self.__login == login and self.__senha == senha
+    
+    # --------- STR ---------
     def __str__(self):
         return f"| {self.__id} | {self.__nome} | {self.__login} | {self.__senha} | {self.__tipo} |"  

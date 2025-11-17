@@ -4,6 +4,7 @@ class Livro:
         self.__titulo = titulo
         self.__autor = autor
 
+    # --------- GETTERS ---------
     def get_id(self):
         return self.__id
     
@@ -13,6 +14,8 @@ class Livro:
     def get_autor(self):
         return self.__autor
 
+
+    # --------- SETTERS ---------
     def set_id(self, id):
         self.__id = int(id)
 
@@ -23,5 +26,6 @@ class Livro:
         self.__autor = autor
         
 
+    # --------- STR ---------
     def __str__(self):
         return f"{self.__id} - {self.__titulo} ({self.__autor})"
