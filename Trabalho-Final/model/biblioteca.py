@@ -209,6 +209,10 @@ class Biblioteca:
     def criar_usuario(self, nome, tipo, login, senha):
         novo_id = max([u.get_id() for u in self.__usuarios], default=0) + 1
         novo_usuario = Usuario(novo_id, nome, tipo, login, senha)
+        for u in self.__usuarios:
+            if u.get_login() == login:
+                print("❌ Login já existe. Escolha outro login.")
+                return
         self.__usuarios.append(novo_usuario)
         self.salvar_usuarios()
         print(f"✅ Usuário '{nome}' criado com sucesso! (ID {novo_id})")

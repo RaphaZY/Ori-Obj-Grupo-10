@@ -4,3 +4,4 @@
 4;Ana Santos;Bibliotecario;ana;1234
 5;Pedro Almeida;Cliente;pedro;1234
 6;Raphael;bibliotecario;rapha;radmin
+7;Vinicius;cliente;vf;1234

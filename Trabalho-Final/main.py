@@ -1,6 +1,5 @@
 from model.biblioteca import Biblioteca
 
-
 # ================
 #   Sobre Menu
 # ================
@@ -378,7 +377,17 @@ def main():
                 print("\n❌  Acesso negado: Usuário ou senha inválidos ❌")
 
         elif opcao == "2":
-            #autenticação
+            nome = input("Informe o nome: ")
+            tipo = input("Informe o tipo: ")
+            login = input("Informe o login: ")
+            senha = input("Informe a senha: ")
+
+            try:
+                sucesso = biblioteca.criar_usuario(nome, tipo, login, senha)
+                if sucesso:
+                    break
+            except Exception as e:
+                print(f"❌ Erro ao criar usuário: {e}")
             pass
 
         elif opcao == "3":
