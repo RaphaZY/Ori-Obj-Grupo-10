@@ -1,8 +1,9 @@
 class Livro:
-    def __init__(self, id=None, titulo=None, autor=None):
+    def __init__(self, id=None, titulo=None, autor=None, descricao=None):
         self.__id = id
         self.__titulo = titulo
         self.__autor = autor
+        self.__descricao = descricao
 
     # --------- GETTERS ---------
     def get_id(self):
@@ -13,6 +14,9 @@ class Livro:
     
     def get_autor(self):
         return self.__autor
+    
+    def get_descricao(self):
+        return self.__descricao
 
 
     # --------- SETTERS ---------
@@ -24,8 +28,11 @@ class Livro:
 
     def set_autor(self, autor):
         self.__autor = autor
+
+    def set_descricao(self, descricao):
+        self.__descricao = descricao
         
 
     # --------- STR ---------
     def __str__(self):
-        return f"{self.__id} - {self.__titulo} ({self.__autor})"
+        return f"{self.__id} - {self.__titulo} ({self.__autor}) : {self.__descricao}"

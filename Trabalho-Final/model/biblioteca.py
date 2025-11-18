@@ -1,5 +1,5 @@
 import os
-from datetime import date, timedelta
+from datetime import date, timedelta, datetime
 from model.usuario import Usuario
 from model.livro import Livro
 from model.emprestimo import Emprestimo
@@ -70,11 +70,12 @@ class Biblioteca:
         caminho = os.path.join(self.__data_path, "livros.txt")
         with open(caminho, "r", encoding="utf-8") as f:
             for linha in f:
-                id, titulo, autor = linha.strip().split(";")
+                id, titulo, autor, descricao = linha.strip().split(";")
                 livro = Livro()
                 livro.set_id(id)
                 livro.set_titulo(titulo)    
                 livro.set_autor(autor)
+                livro.set_descricao(descricao)
                 livros.append(livro)
         return livros
 
@@ -138,10 +139,11 @@ class Biblioteca:
             for e in self.__emprestimos:
                 f.write(e.to_string_line())
 
-    # ------------------- CONTAR -------------------
     def contar_emprestimos_cliente(self, id_cliente):
         idc = int(id_cliente)
         return sum(1 for e in self.__emprestimos if int(e.get_id_cliente()) == idc)
+
+    
 
     # ------------------- NOVO EMPRÉSTIMO -------------------
     def fazer_emprestimo(self, id_cliente, id_livro):
@@ -234,11 +236,11 @@ class Biblioteca:
         caminho = os.path.join(self.__data_path, "livros.txt")
         with open(caminho, "w", encoding="utf-8") as f:
             for l in self.__livros:
-                f.write(f"{l.get_id()};{l.get_titulo()};{l.get_autor()}\n")
+                f.write(f"{l.get_id()};{l.get_titulo()};{l.get_autor()};{l.get_descricao()}\n")
 
-    def criar_livro(self, titulo, autor):
+    def criar_livro(self, titulo, autor, descricao):
         novo_id = max([l.get_id() for l in self.__livros], default=0) + 1
-        novo_livro = Livro(novo_id, titulo, autor)
+        novo_livro = Livro(novo_id, titulo, autor, descricao)
         self.__livros.append(novo_livro)
         self.salvar_livros()
         print(f"✅ Livro '{titulo}' cadastrado com sucesso! (ID {novo_id})")
@@ -253,3 +255,68 @@ class Biblioteca:
         print("❌ Livro não encontrado.") 
 
 
+# ------------------- Multas -------------------
+    def multas_cliente(self, id_cliente):
+        multas_individuais = self.calcular_multas_individuais(id_cliente)
+
+        if not multas_individuais:
+            return ["✅ Nenhuma multa pendente para este cliente."]
+
+        lista_formatada = []
+        total = 0.0
+
+        for emprestimo, valor in multas_individuais:
+            livro = self.get_livro_por_id(emprestimo.get_id_livro())
+            data_entrega = emprestimo.get_data_entrega()
+
+            lista_formatada.append(
+                f"Livro: {livro.get_titulo()} | Devolução: {data_entrega.strftime('%d/%m/%Y')} | Multa: R$ {valor:.2f}"
+            )
+
+            total += valor
+
+        lista_formatada.append(f"💰 Total de multas: R$ {total:.2f}")
+
+        return lista_formatada
+
+
+    def pagar_multa(self, id_cliente):
+        multas_individuais = self.calcular_multas_individuais(id_cliente)
+
+        if not multas_individuais:
+            print("❌ Nenhuma multa pendente para este cliente.")
+            return
+
+        total = 0.0
+        for emprestimo, valor in multas_individuais:
+            total += valor
+            self.remover_emprestimo(emprestimo.get_id(), id_cliente)
+
+        print(f"✅ Multa total de R$ {total:.2f} paga com sucesso!")
+
+    def calcular_total_multas(self, id_cliente):
+        multas = self.calcular_multas_individuais(id_cliente)
+        return sum(valor for _, valor in multas)
+    
+    def multas_ativas(self):
+        hoje = date.today()
+        for e in self.__emprestimos:
+            data_entrega = e.get_data_entrega()
+            if hoje > data_entrega:
+                return True
+        return False
+    
+    def calcular_multas_individuais(self, id_cliente):
+        hoje = date.today()
+        multas = []   # lista de tuplas (emprestimo, valor_da_multa)
+
+        for e in self.__emprestimos:
+            if int(e.get_id_cliente()) == int(id_cliente):
+                data_entrega = e.get_data_entrega()
+
+                if hoje > data_entrega:
+                    dias_atraso = (hoje - data_entrega).days
+                    valor = dias_atraso * 1.4
+                    multas.append((e, valor))
+
+        return multas

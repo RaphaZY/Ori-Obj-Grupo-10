@@ -159,30 +159,78 @@ def menu_cliente(biblioteca, usuario):
         if opcao == "1":
             biblioteca.listar_emprestimos_cliente(usuario.get_id())
             while True:
-                print("\n1 - Fazer um Empréstimo")
-                print("2 - Voltar ao Menu Principal")
+                if biblioteca.multas_cliente(usuario.get_id()):
+                    print("\n1 - Fazer um Empréstimo")
+                    print("2 - Verificar Multas")
+                    print("3 - Voltar ao Menu Principal")
 
-                opcao = input("Escolha uma opção: ")
-                if opcao == "1":
-                    if biblioteca.contar_emprestimos_cliente(usuario.get_id()) >= 3:
-                        print("❌ Limite de 3 empréstimos atingido.")
+                    opcao = input("Escolha uma opção: ")
+                    if opcao == "1":
+                        if biblioteca.contar_emprestimos_cliente(usuario.get_id()) >= 3:
+                            print("❌ Limite de 3 empréstimos atingido.")
+                            break
+                        id_livro = int(input("Informe o Id do livro: "))
+                        if not biblioteca.get_livro_por_id(id_livro):
+                            print("Livro não encontrado, tente novamente.")
+                            continue
+                        else:
+                            try:
+                                sucesso = biblioteca.fazer_emprestimo(usuario.get_id(), biblioteca.get_livro_por_id(id_livro).get_id())
+                                if sucesso:
+                                    break
+                            except Exception as e:
+                                print(f"❌ Erro ao fazer empréstimo: {e}")
+                    elif opcao == "2":
+                        multas = biblioteca.multas_cliente(usuario.get_id())
+                        if not multas:
+                            print("✅ Você não possui multas pendentes.")
+                            continue
+                        for multa in multas:
+                            print(multa)
+
+                        print(f"\nTotal de multas: R$ {biblioteca.calcular_total_multas(usuario.get_id()):.2f}")
+
+                        print("Pagar multas agora? (S/N)")
+                        resposta = input().strip().upper()
+                        if resposta == "S":
+                            try:
+                                sucesso = biblioteca.pagar_multa(usuario.get_id())
+                                if sucesso:
+                                    print("✅ Multas pagas com sucesso!")
+                                    break
+                            except Exception as e:
+                                print(f"❌ Erro ao pagar multas: {e}")
+                        else:
+                            print("Pagamento de multas cancelado.")
+                    elif opcao == "3":
                         break
-                    id_livro = int(input("Informe o Id do livro: "))
-                    if not biblioteca.get_livro_por_id(id_livro):
-                        print("Livro não encontrado, tente novamente.")
-                        continue
                     else:
-                        try:
-                            sucesso = biblioteca.fazer_emprestimo(usuario.get_id(), biblioteca.get_livro_por_id(id_livro).get_id())
-                            if sucesso:
-                                break
-                        except Exception as e:
-                            print(f"❌ Erro ao fazer empréstimo: {e}")
-
-                elif opcao == "2":
-                    break
+                        print("Opção inválida, tente novamente.")
                 else:
-                    print("Opção inválida, tente novamente.")
+                    print("\n1 - Fazer um Empréstimo")
+                    print("2 - Voltar ao Menu Principal")
+
+                    opcao = input("Escolha uma opção: ")
+                    if opcao == "1":
+                        if biblioteca.contar_emprestimos_cliente(usuario.get_id()) >= 3:
+                            print("❌ Limite de 3 empréstimos atingido.")
+                            break
+                        id_livro = int(input("Informe o Id do livro: "))
+                        if not biblioteca.get_livro_por_id(id_livro):
+                            print("Livro não encontrado, tente novamente.")
+                            continue
+                        else:
+                            try:
+                                sucesso = biblioteca.fazer_emprestimo(usuario.get_id(), biblioteca.get_livro_por_id(id_livro).get_id())
+                                if sucesso:
+                                    break
+                            except Exception as e:
+                                print(f"❌ Erro ao fazer empréstimo: {e}")
+                    elif opcao == "2":
+                        break
+                    else:
+                        print("Opção inválida, tente novamente.")
+
         elif opcao == "2":
             biblioteca.listar_livros()
         elif opcao == "3":
@@ -199,154 +247,389 @@ def menu_cliente(biblioteca, usuario):
 # ================
 def menu_admin(biblioteca, usuario):
     while True:
-        print(f"\n👤 Bem-vindo(a), {usuario.get_nome()}!")
-        print("1 - Visualizar Empréstimos")
-        print("2 - Visualizar Contas")
-        print("3 - Visualizar Livros")
-        print("4 - Sobre")
-        print("5 - Sair")
+        try:
+            print(f"\n👤 Bem-vindo(a), {usuario.get_nome()}!")
+            print("1 - Visualizar Empréstimos")
+            print("2 - Visualizar Contas")
+            print("3 - Visualizar Livros")
+            print("4 - Sobre")
+            print("5 - Sair")
 
-        opcao = input("Escolha uma opção: ")
-        if opcao == "1":
-            biblioteca.listar_emprestimos()
-            while True:
-                print("\n1 - Fazer empréstimo para um Cliente")
-                print("2 - Remover empréstimo de um Cliente")
-                print("3 - Voltar ao Menu Principal")
+            opcao = input("Escolha uma opção: ")
+            
+            if opcao == "1":
+                try:
+                    biblioteca.listar_emprestimos()
+                except Exception as e:
+                    print(f"❌ Erro ao listar empréstimos: {e}")
+                    continue
+                    
+                while True:
+                    try:
+                        if not biblioteca.multas_ativas():
+                            print("\n1 - Fazer empréstimo para um Cliente")
+                            print("2 - Remover empréstimo de um Cliente")
+                            print("3 - Voltar ao Menu Principal")
 
-                opcao = input("Escolha uma opção: ")
-                if opcao == "1":
+                            opcao = input("Escolha uma opção: ")
+                            if opcao == "1":
+                                try:
+                                    id_cliente = int(input("Informe o Id do cliente: "))
+                                except ValueError:
+                                    print("❌ Erro: ID do cliente deve ser um número inteiro.")
+                                    continue
+                                
+                                try:
+                                    if not biblioteca.get_cliente_por_id(id_cliente):
+                                        print("Cliente não encontrado, tente novamente.")
+                                        continue
+                                except Exception as e:
+                                    print(f"❌ Erro ao buscar cliente: {e}")
+                                    continue
 
-                    id_cliente = int(input("Informe o Id do cliente: "))
-                    if not biblioteca.get_cliente_por_id(id_cliente):
-                        print("Cliente não encontrado, tente novamente.")
-                        continue
+                                try:
+                                    if biblioteca.contar_emprestimos_cliente(id_cliente) >= 3:
+                                        print("❌ Limite de 3 empréstimos atingido.")
+                                        break
+                                except Exception as e:
+                                    print(f"❌ Erro ao verificar empréstimos: {e}")
+                                    continue
 
-                    if biblioteca.contar_emprestimos_cliente(id_cliente) >= 3:
-                        print("❌ Limite de 3 empréstimos atingido.")
+                                try:
+                                    id_livro = int(input("Informe o Id do livro: "))
+                                except ValueError:
+                                    print("❌ Erro: ID do livro deve ser um número inteiro.")
+                                    continue
+                                
+                                try:
+                                    if not biblioteca.get_livro_por_id(id_livro):
+                                        print("Livro não encontrado, tente novamente.")
+                                        continue
+                                except Exception as e:
+                                    print(f"❌ Erro ao buscar livro: {e}")
+                                    continue
+                                
+                                try:
+                                    sucesso = biblioteca.fazer_emprestimo(id_cliente, id_livro)
+                                    if sucesso:
+                                        break
+                                except Exception as e:
+                                    print(f"❌ Erro ao fazer empréstimo: {e}")
+
+                            elif opcao == "2":
+                                try:
+                                    id_emprestimo = int(input("Informe o Id do emprestimo: "))
+                                except ValueError:
+                                    print("❌ Erro: ID do empréstimo deve ser um número inteiro.")
+                                    continue
+                                
+                                try:
+                                    if not biblioteca.get_emprestimo_por_id(id_emprestimo):
+                                        print("Empréstimo não encontrado, tente novamente.")
+                                        continue
+                                except Exception as e:
+                                    print(f"❌ Erro ao buscar empréstimo: {e}")
+                                    continue
+
+                                try:
+                                    id_cliente = int(input("Informe o Id do cliente: "))
+                                except ValueError:
+                                    print("❌ Erro: ID do cliente deve ser um número inteiro.")
+                                    continue
+                                
+                                try:
+                                    if not biblioteca.get_cliente_por_id(id_cliente):
+                                        print("Cliente não encontrado, tente novamente.")
+                                        continue
+                                except Exception as e:
+                                    print(f"❌ Erro ao buscar cliente: {e}")
+                                    continue
+                                
+                                try:
+                                    sucesso = biblioteca.remover_emprestimo(
+                                        biblioteca.get_emprestimo_por_id(id_emprestimo).get_id(),
+                                        biblioteca.get_cliente_por_id(id_cliente).get_id()
+                                    )
+                                    if sucesso:
+                                        break
+                                except Exception as e:
+                                    print(f"❌ Erro ao remover empréstimo: {e}")
+
+                            elif opcao == "3":
+                                break
+                            else:
+                                print("Opção inválida, tente novamente.")
+                                
+                        else:
+                            print("\n⚠️ Existem multas ativas ⚠️")
+                            print("\n1 - Fazer empréstimo para um Cliente")
+                            print("2 - Remover empréstimo de um Cliente")
+                            print("3 - Pagar Multas para o Cliente")
+                            print("4 - Voltar ao Menu Principal")
+
+                            opcao = input("Escolha uma opção: ")
+                            if opcao == "1":
+                                try:
+                                    id_cliente = int(input("Informe o Id do cliente: "))
+                                except ValueError:
+                                    print("❌ Erro: ID do cliente deve ser um número inteiro.")
+                                    continue
+                                
+                                try:
+                                    if not biblioteca.get_cliente_por_id(id_cliente):
+                                        print("Cliente não encontrado, tente novamente.")
+                                        continue
+                                except Exception as e:
+                                    print(f"❌ Erro ao buscar cliente: {e}")
+                                    continue
+
+                                try:
+                                    if biblioteca.contar_emprestimos_cliente(id_cliente) >= 3:
+                                        print("❌ Limite de 3 empréstimos atingido.")
+                                        break
+                                except Exception as e:
+                                    print(f"❌ Erro ao verificar empréstimos: {e}")
+                                    continue
+
+                                try:
+                                    id_livro = int(input("Informe o Id do livro: "))
+                                except ValueError:
+                                    print("❌ Erro: ID do livro deve ser um número inteiro.")
+                                    continue
+                                
+                                try:
+                                    if not biblioteca.get_livro_por_id(id_livro):
+                                        print("Livro não encontrado, tente novamente.")
+                                        continue
+                                except Exception as e:
+                                    print(f"❌ Erro ao buscar livro: {e}")
+                                    continue
+                                
+                                try:
+                                    sucesso = biblioteca.fazer_emprestimo(id_cliente, id_livro)
+                                    if sucesso:
+                                        break
+                                except Exception as e:
+                                    print(f"❌ Erro ao fazer empréstimo: {e}")
+
+                            elif opcao == "2":
+                                try:
+                                    id_emprestimo = int(input("Informe o Id do emprestimo: "))
+                                except ValueError:
+                                    print("❌ Erro: ID do empréstimo deve ser um número inteiro.")
+                                    continue
+                                
+                                try:
+                                    if not biblioteca.get_emprestimo_por_id(id_emprestimo):
+                                        print("Empréstimo não encontrado, tente novamente.")
+                                        continue
+                                except Exception as e:
+                                    print(f"❌ Erro ao buscar empréstimo: {e}")
+                                    continue
+
+                                try:
+                                    id_cliente = int(input("Informe o Id do cliente: "))
+                                except ValueError:
+                                    print("❌ Erro: ID do cliente deve ser um número inteiro.")
+                                    continue
+                                
+                                try:
+                                    if not biblioteca.get_cliente_por_id(id_cliente):
+                                        print("Cliente não encontrado, tente novamente.")
+                                        continue
+                                except Exception as e:
+                                    print(f"❌ Erro ao buscar cliente: {e}")
+                                    continue
+                                
+                                try:
+                                    sucesso = biblioteca.remover_emprestimo(
+                                        biblioteca.get_emprestimo_por_id(id_emprestimo).get_id(),
+                                        biblioteca.get_cliente_por_id(id_cliente).get_id()
+                                    )
+                                    if sucesso:
+                                        break
+                                except Exception as e:
+                                    print(f"❌ Erro ao remover empréstimo: {e}")
+
+                            elif opcao == "3":
+                                try:
+                                    id_cliente = int(input("Informe o Id do cliente: "))
+                                except ValueError:
+                                    print("❌ Erro: ID do cliente deve ser um número inteiro.")
+                                    continue
+                                
+                                try:
+                                    if not biblioteca.get_cliente_por_id(id_cliente):
+                                        print("Cliente não encontrado, tente novamente.")
+                                        continue
+                                except Exception as e:
+                                    print(f"❌ Erro ao buscar cliente: {e}")
+                                    continue
+                                
+                                try:
+                                    multas = biblioteca.multas_cliente(id_cliente)
+                                    if not multas:
+                                        print("✅ Este cliente não possui multas pendentes.")
+                                        continue
+                                    for multa in multas:
+                                        print(multa)
+                                except Exception as e:
+                                    print(f"❌ Erro ao listar multas: {e}")
+                                    continue
+
+                                try:
+                                    print(f"\nTotal de multas: R$ {biblioteca.calcular_total_multas(id_cliente):.2f}")
+                                except Exception as e:
+                                    print(f"❌ Erro ao calcular multas: {e}")
+                                    continue
+
+                                print("Pagar multas agora? (S/N)")
+                                resposta = input().strip().upper()
+                                if resposta == "S":
+                                    try:
+                                        sucesso = biblioteca.pagar_multa(id_cliente)
+                                        if sucesso:
+                                            print("✅ Multas pagas com sucesso!")
+                                            break
+                                    except Exception as e:
+                                        print(f"❌ Erro ao pagar multas: {e}")
+                                else:
+                                    print("Pagamento de multas cancelado.")
+                            elif opcao == "4":
+                                break
+                            else:
+                                print("Opção inválida, tente novamente.")
+                    except Exception as e:
+                        print(f"❌ Erro inesperado: {e}")
                         break
-
-                    id_livro = int(input("Informe o Id do livro: "))
-                    if not biblioteca.get_livro_por_id(id_livro):
-                        print("Livro não encontrado, tente novamente.")
-                        continue
-                    else:
-                        try:
-                            sucesso = biblioteca.fazer_emprestimo(id_cliente, id_livro)
-                            if sucesso:
-                                break
-                        except Exception as e:
-                            print(f"❌ Erro ao fazer empréstimo: {e}")
-
-                elif opcao == "2":
-
-                    id_emprestimo = int(input("Informe o Id do emprestimo: "))
-                    if not biblioteca.get_emprestimo_por_id(id_emprestimo):
-                        print("Empréstimo não encontrado, tente novamente.")
-                        continue
-
-                    id_cliente = int(input("Informe o Id do cliente: "))
-                    if not biblioteca.get_cliente_por_id(id_cliente):
-                        print("Cliente não encontrado, tente novamente.")
-                        continue
-                   
-                    else:
-                        try:
-                            sucesso = biblioteca.remover_emprestimo(biblioteca.get_emprestimo_por_id(id_emprestimo).get_id(), biblioteca.get_cliente_por_id(id_cliente).get_id())
-                            if sucesso:
-                                break
-                        except Exception as e:
-                            print(f"❌ Erro ao fazer empréstimo: {e}")
-
-                elif opcao == "3":
-                    break
-                else:
-                    print("Opção inválida, tente novamente.")
-        elif opcao == "2":
-            biblioteca.listar_contas()
-            while True:
-                print("\n1 - Adicionar Conta")
-                print("2 - Remover Conta")
-                print("3 - Voltar ao Menu Principal")
-
-                opcao = input("Escolha uma opção: ")
-                if opcao == "1":
-
-                    nome = input("Informe o nome: ")
-                    tipo = input("Informe o tipo: ")
-                    login = input("Informe o login: ")
-                    senha = input("Informe a senha: ")
-
+                        
+            elif opcao == "2":
+                try:
+                    biblioteca.listar_contas()
+                except Exception as e:
+                    print(f"❌ Erro ao listar contas: {e}")
+                    continue
+                    
+                while True:
                     try:
-                        sucesso = biblioteca.criar_usuario(nome, tipo, login, senha)
-                        if sucesso:
+                        print("\n1 - Adicionar Conta")
+                        print("2 - Remover Conta")
+                        print("3 - Voltar ao Menu Principal")
+
+                        opcao = input("Escolha uma opção: ")
+                        if opcao == "1":
+                            nome = input("Informe o nome: ")
+                            tipo = input("Informe o tipo: ")
+                            login = input("Informe o login: ")
+                            senha = input("Informe a senha: ")
+
+                            try:
+                                sucesso = biblioteca.criar_usuario(nome, tipo, login, senha)
+                                if sucesso:
+                                    break
+                            except Exception as e:
+                                print(f"❌ Erro ao criar usuário: {e}")
+
+                        elif opcao == "2":
+                            try:
+                                id_cliente = int(input("Informe o Id do cliente: "))
+                            except ValueError:
+                                print("❌ Erro: ID do cliente deve ser um número inteiro.")
+                                continue
+                            
+                            try:
+                                if not biblioteca.get_cliente_por_id(id_cliente):
+                                    print("Cliente não encontrado, tente novamente.")
+                                    continue
+                            except Exception as e:
+                                print(f"❌ Erro ao buscar cliente: {e}")
+                                continue
+                            
+                            try:
+                                sucesso = biblioteca.deletar_usuario(id_cliente)
+                                if sucesso:
+                                    break
+                            except Exception as e:
+                                print(f"❌ Erro ao deletar usuário: {e}")
+
+                        elif opcao == "3":
                             break
+                        else:
+                            print("Opção inválida, tente novamente.")
                     except Exception as e:
-                        print(f"❌ Erro ao criar usuário: {e}")
-
-                elif opcao == "2":
-
-                    id_cliente = int(input("Informe o Id do cliente: "))
-                    if not biblioteca.get_cliente_por_id(id_cliente):
-                        print("Cliente não encontrado, tente novamente.")
-                        continue
-                    else:
-                        try:
-                            sucesso = biblioteca.deletar_usuario(id_cliente)
-                            if sucesso:
-                                break
-                        except Exception as e:
-                            print(f"❌ Erro ao deletar usuário: {e}")
-
-                elif opcao == "3":
-                    break
-                else:
-                    print("Opção inválida, tente novamente.")
-        elif opcao == "3":
-            biblioteca.listar_livros()
-            while True:
-                print("\n1 - Adicionar Livro")
-                print("2 - Remover Livro")
-                print("3 - Voltar ao Menu Principal")
-
-                opcao = input("Escolha uma opção: ")
-                if opcao == "1":
-
-                    nome = input("Informe o nome: ")
-                    autor = input("Informe o autor: ")
-
+                        print(f"❌ Erro inesperado: {e}")
+                        break
+                        
+            elif opcao == "3":
+                try:
+                    biblioteca.listar_livros()
+                except Exception as e:
+                    print(f"❌ Erro ao listar livros: {e}")
+                    continue
+                    
+                while True:
                     try:
-                        sucesso = biblioteca.criar_livro(nome, autor)
-                        if sucesso:
+                        print("\n1 - Adicionar Livro")
+                        print("2 - Remover Livro")
+                        print("3 - Voltar ao Menu Principal")
+
+                        opcao = input("Escolha uma opção: ")
+                        if opcao == "1":
+                            nome = input("Informe o nome: ")
+                            autor = input("Informe o autor: ")
+                            descricao = input("Informe a descrição: ")
+
+                            try:
+                                sucesso = biblioteca.criar_livro(nome, autor, descricao)
+                                if sucesso:
+                                    break
+                            except Exception as e:
+                                print(f"❌ Erro ao criar livro: {e}")
+
+                        elif opcao == "2":
+                            try:
+                                id_livro = int(input("Informe o Id do Livro: "))
+                            except ValueError:
+                                print("❌ Erro: ID do livro deve ser um número inteiro.")
+                                continue
+                            
+                            try:
+                                if not biblioteca.get_livro_por_id(id_livro):
+                                    print("Livro não encontrado, tente novamente.")
+                                    continue
+                            except Exception as e:
+                                print(f"❌ Erro ao buscar livro: {e}")
+                                continue
+                            
+                            try:
+                                sucesso = biblioteca.deletar_livro(id_livro)
+                                if sucesso:
+                                    break
+                            except Exception as e:
+                                print(f"❌ Erro ao deletar livro: {e}")
+
+                        elif opcao == "3":
                             break
+                        else:
+                            print("Opção inválida, tente novamente.")
                     except Exception as e:
-                        print(f"❌ Erro ao criar usuário: {e}")
-
-                elif opcao == "2":
-
-                    id_livro = int(input("Informe o Id do Livro: "))
-                    if not biblioteca.get_livro_por_id(id_livro):
-                        print("Livro não encontrado, tente novamente.")
-                        continue
-                    else:
-                        try:
-                            sucesso = biblioteca.deletar_livro(id_livro)
-                            if sucesso:
-                                break
-                        except Exception as e:
-                            print(f"❌ Erro ao deletar livro: {e}")
-
-                elif opcao == "3":
-                    break
-                else:
-                    print("Opção inválida, tente novamente.")
-        elif opcao == "4":
-            exibir_sobre()
-        elif opcao == "5":
-            print("Saindo... Até logo!")
-            break
-        else:
-            print("Opção inválida, tente novamente.")
+                        print(f"❌ Erro inesperado: {e}")
+                        break
+                        
+            elif opcao == "4":
+                try:
+                    exibir_sobre()
+                except Exception as e:
+                    print(f"❌ Erro ao exibir informações: {e}")
+                    
+            elif opcao == "5":
+                print("Saindo... Até logo!")
+                break
+            else:
+                print("Opção inválida, tente novamente.")
+                
+        except Exception as e:
+            print(f"❌ Erro crítico no sistema: {e}")
 
 
 # ================

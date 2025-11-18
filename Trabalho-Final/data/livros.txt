@@ -1,10 +1,12 @@
-1;O Senhor dos Anéis;J.R.R. Tolkien
-2;Dom Casmurro;Machado de Assis
-3;Harry Potter e a Pedra Filosofal;J.K. Rowling
-4;1984;George Orwell
-5;O Pequeno Príncipe;Antoine de Saint-Exupéry
-6;O Hobbit;J.R.R. Tolkien
-7;A Revolução dos Bichos;George Orwell
-8;Orgulho e Preconceito;Jane Austen
-9;O Código Da Vinci;Dan Brown
-10;Capitães da Areia;Jorge Amado
+1;O Senhor dos Anéis;J.R.R. Tolkien;Uma jornada épica pela Terra-média em busca de destruir o Um Anel e derrotar as forças das trevas.
+2;Dom Casmurro;Machado de Assis;Um relato introspectivo sobre ciúme, memória e a dúvida eterna envolvendo Capitu.
+3;Harry Potter e a Pedra Filosofal;J.K. Rowling;O início da saga do jovem bruxo que descobre seu destino no mundo mágico de Hogwarts.
+4;1984;George Orwell;Uma distopia sombria que retrata um regime totalitário onde o Grande Irmão controla tudo.
+5;O Pequeno Príncipe;Antoine de Saint-Exupéry;Uma história poética sobre amizade, inocência e a essência do que realmente importa.
+6;O Hobbit;J.R.R. Tolkien;A aventura inesperada de Bilbo Bolseiro ao lado de anões em busca de um tesouro guardado por um dragão.
+7;A Revolução dos Bichos;George Orwell;Uma fábula crítica que expõe corrupção e tirania através da revolta de animais em uma fazenda.
+8;Orgulho e Preconceito;Jane Austen;Um clássico romance que explora relacionamentos, costumes sociais e julgamentos precipitados.
+9;O Código Da Vinci;Dan Brown;Um suspense cheio de mistérios religiosos, conspirações e pistas espalhadas pela Europa.
+10;Capitães da Areia;Jorge Amado;A dura vida de crianças abandonadas que sobrevivem nas ruas de Salvador.
+11;Ordem Paranormal;Cellbit;Uma trama de horror moderno onde agentes investigam criaturas ocultas e segredos que ameaçam o mundo.
+
