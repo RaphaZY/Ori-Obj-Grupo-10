@@ -9,4 +9,3 @@
 9;O Código Da Vinci;Dan Brown;Um suspense cheio de mistérios religiosos, conspirações e pistas espalhadas pela Europa.
 10;Capitães da Areia;Jorge Amado;A dura vida de crianças abandonadas que sobrevivem nas ruas de Salvador.
 11;Ordem Paranormal;Cellbit;Uma trama de horror moderno onde agentes investigam criaturas ocultas e segredos que ameaçam o mundo.
-

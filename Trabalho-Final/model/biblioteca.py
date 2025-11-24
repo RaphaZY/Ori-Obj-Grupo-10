@@ -56,6 +56,8 @@ class Biblioteca:
         with open(caminho, "r", encoding="utf-8") as f:
             for linha in f:
                 id, nome, tipo, login, senha = linha.strip().split(";")
+                if not linha or len(linha.split(";")) < 5:
+                    continue
                 usuario = Usuario()
                 usuario.set_id(id)
                 usuario.set_nome(nome)
@@ -71,6 +73,8 @@ class Biblioteca:
         with open(caminho, "r", encoding="utf-8") as f:
             for linha in f:
                 id, titulo, autor, descricao = linha.strip().split(";")
+                if not linha or len(linha.split(";")) < 4:
+                    continue
                 livro = Livro()
                 livro.set_id(id)
                 livro.set_titulo(titulo)    
@@ -100,7 +104,6 @@ class Biblioteca:
                 emprestimos.append(emprestimo)
 
         return emprestimos
-
 
    
     # ---------- LISTAGENS -------------
