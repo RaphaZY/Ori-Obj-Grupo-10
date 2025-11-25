@@ -3,7 +3,6 @@
 
 - Gabriel Maximus Ronco Fonseca Rocha
 - Gabriel Simões de Oliveira
-- Matheus Lourenço Buratti
 - Raphael Venâncio Coelho
 - Samuel de Mendonça
 - Stephen Richard Silva Gomes Lopes Sousa
